@@ -3,7 +3,9 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Dropdown from 'react-bootstrap/Dropdown'
 
-const SubHeading = () => (
+const SubHeading = ({ initialLoad }) => (
+    <>
+    { !initialLoad && 
     <Container fluid>
 
         <Row className="pt-3">
@@ -35,6 +37,8 @@ const SubHeading = () => (
         </Row>
 
     </Container>
+    }
+    </>
 )
 
 export default SubHeading 
