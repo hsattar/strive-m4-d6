@@ -6,7 +6,7 @@ import LoadingCard from './LoadingCard'
 const HeroMovie = ({initialLoad}) => (
     <>
         { initialLoad ? 
-            <Row className='mt-3'>
+            <Row className='mt-3 mx-1'>
                 <Col xs='12'>
                     <LoadingCard /> 
                 </Col>
