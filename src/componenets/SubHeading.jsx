@@ -3,7 +3,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
 
-const SubHeading = ({ initialLoad, handleChange, category }) => (
+const SubHeading = ({ initialLoad, handleChange, category, movieGridLayout, handleGridLayoutClick, handleListLayoutClick }) => (
     <>
     { !initialLoad && 
     <Container fluid>
@@ -27,8 +27,16 @@ const SubHeading = ({ initialLoad, handleChange, category }) => (
                 </div>
             
                 <div className="d-none d-md-flex">
-                    <i className="bi bi-list"></i>
-                    <i className="bi bi-grid-3x2-gap"></i>
+                    <i 
+                        className={!movieGridLayout ? "bi bi-list text-white" : "bi bi-list"}
+                        onClick={handleListLayoutClick}
+                    >
+                    </i>
+                    <i 
+                        className={movieGridLayout ? "bi bi-grid-3x2-gap text-white" : "bi bi-grid-3x2-gap"}
+                        onClick={handleGridLayoutClick}
+                    >
+                    </i>
                 </div>
 
             </Col>

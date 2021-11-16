@@ -19,6 +19,7 @@ const Home = () => {
     const [data, setData] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
     const [category, setCategory] = useState('Action')
+    const [movieGridLayout, setMovieGridLayout] = useState(true)
       
     const fetchMovies = async (query, num) => {
   
@@ -101,12 +102,16 @@ const Home = () => {
                         initialLoad={initialLoad}
                         category={category}
                         handleChange={e => setCategory(e.target.value)}
+                        movieGridLayout={movieGridLayout}
+                        handleGridLayoutClick={() => setMovieGridLayout(true)}
+                        handleListLayoutClick={() => setMovieGridLayout(false)}
                     />
                     <BrowseMovies 
                         initialLoad={initialLoad} 
                         movies={movies}
                         movies2={movies2}
                         movies3={movies3}
+                        movieGridLayout={movieGridLayout}
                     />
                     <Footer />
                 </>
