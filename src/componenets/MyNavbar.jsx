@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState } from 'react'
 import Navbar from 'react-bootstrap/Navbar'
 import Form from 'react-bootstrap/Form'
 import FormControl from 'react-bootstrap/FormControl'
@@ -10,95 +10,93 @@ import SubHeading from './SubHeading'
 import BrowseMovies from './BrowseMovies'
 import Loading from './Loading'
 
-class MyNavbar extends React.Component {
+const MyNavbar = () => {
 
-    state = {
-        searchQuery: '',
-        showSearchresults: false,
-        data: null,
-        isLoading: false
-    }
+    const [searchQuery, setSearchQuery] = useState('')
+    const [showSearchResults, setShowSearchResults] = useState(false)
+    const [data, setData] = useState(null)
+    const [isLoading, setIsLoading] = useState(false)
 
-    handleSubmit = async e => {
+    const handleSubmit = async e => {
         e.preventDefault()
-        this.setState({isLoading: true})
+        setIsLoading(true)
         try {
-            if (this.state.searchQuery.length === 0) {
-                this.setState({showSearchresults: false})
-                this.setState({isLoading: false})
+            if (searchQuery.length === 0) {
+                setShowSearchResults(false)
+                setIsLoading(false)
             } 
             else {
-                const response = await fetch(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&s=${this.state.searchQuery}`)
+                const response = await fetch(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&s=${searchQuery}`)
                 const data = await response.json()
-                this.setState({data: data})
-                if (this.state.searchQuery) this.setState({showSearchresults: true})
-                this.setState({isLoading: false})
+                setData(data)
+                if (searchQuery) {
+                    setShowSearchResults(true)
+                    setIsLoading(false)
+                }
             }
         } catch (error) {
             console.error(error)
         }
     }
 
-    render() {
-        return (
-            <>
-                <Navbar bg="dark" variant="dark" expand="lg">
-                <Navbar.Brand>
-                    <a className="navbar-brand " href="/"><img className="netflix-logo" src="../assets/netflix_logo.png" alt=""/></a>
-                    </Navbar.Brand>
+    return (
+        <>
+            <Navbar bg="dark" variant="dark" expand="lg">
+            <Navbar.Brand>
+                <a className="navbar-brand " href="/"><img className="netflix-logo" src="../assets/netflix_logo.png" alt=""/></a>
+                </Navbar.Brand>
 
-                    <div className="collapse navbar-collapse text-white" id="navbarSupportedContent">
-                        <ul className="navbar-nav mr-auto">
-                            <li className="nav-item"><a className="nav-link" href="/">Home</a></li>
-                            <li className="nav-item"><a className="nav-link" href="/">TV Shows<span className="sr-only">(current)</span></a></li>
-                            <li className="nav-item active"><a className="nav-link" href="/">Movies</a></li>
-                            <li className="nav-item"><a className="nav-link" href="/">Recently Added</a></li>
-                            <li className="nav-item"><a className="nav-link" href="/">My List</a></li>
-                        </ul>
+                <div className="collapse navbar-collapse text-white" id="navbarSupportedContent">
+                    <ul className="navbar-nav mr-auto">
+                        <li className="nav-item"><a className="nav-link" href="/">Home</a></li>
+                        <li className="nav-item"><a className="nav-link" href="/">TV Shows<span className="sr-only">(current)</span></a></li>
+                        <li className="nav-item active"><a className="nav-link" href="/">Movies</a></li>
+                        <li className="nav-item"><a className="nav-link" href="/">Recently Added</a></li>
+                        <li className="nav-item"><a className="nav-link" href="/">My List</a></li>
+                    </ul>
 
-                        <div className="form-inline my-2 my-lg-0">
+                    <div className="form-inline my-2 my-lg-0">
+                    
+                        <span className="mx-2 profile-type">Kids</span>
+                        <i className="bi bi-bell-fill mx-2"></i>
                         
-                            <span className="mx-2 profile-type">Kids</span>
-                            <i className="bi bi-bell-fill mx-2"></i>
-                            
-                            <img className="drop-down-avatar mr-2" src="../assets/avatar.png" alt=""/>
+                        <img className="drop-down-avatar mr-2" src="../assets/avatar.png" alt=""/>
 
 
-                            <Form inline onSubmit={this.handleSubmit}>
-                                <FormControl
-                                    className='bg-dark text-white'
-                                    type="text"
-                                    placeholder="Search here"
-                                    value={this.state.searchQuery}
-                                    onChange={e => this.setState({ searchQuery: e.target.value })} 
-                                />
-                                {
-                                    this.state.isLoading && 
-                                    <Loading />
-                                }
-                                <Button type="submit" variant="dark"><i className="bi bi-search mx-2"></i></Button>
-                            </Form>
-                        </div>
-
+                        <Form inline onSubmit={handleSubmit}>
+                            <FormControl
+                                className='bg-dark text-white'
+                                type="text"
+                                placeholder="Search here"
+                                value={searchQuery}
+                                onChange={e => setSearchQuery(e.target.value)} 
+                            />
+                            {
+                                isLoading && 
+                                <Loading />
+                            }
+                            <Button type="submit" variant="dark"><i className="bi bi-search mx-2"></i></Button>
+                        </Form>
                     </div>
-                
-                </Navbar>
 
-                {this.state.showSearchresults && 
-                    <SearchResults movies={this.state.data} searchQuery={this.state.searchQuery}/>
-                }
-                {
-                    !this.state.showSearchresults &&      
-                    <>
-                        <HeroMovie />
-                        <SubHeading />
-                        <BrowseMovies />
-                        <Footer />
-                    </>
-                }
-            </>
-        )
-    }
+                </div>
+            
+            </Navbar>
+
+            {showSearchResults && 
+                <SearchResults movies={data} searchQuery={searchQuery}/>
+            }
+            {
+                !showSearchResults &&      
+                <>
+                    <HeroMovie />
+                    <SubHeading />
+                    <BrowseMovies />
+                    <Footer />
+                </>
+            }
+        </>
+    )
 }
 
 

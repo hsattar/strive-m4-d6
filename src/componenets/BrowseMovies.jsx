@@ -1,56 +1,50 @@
-import { Component } from "react"
+import { useEffect, useState } from "react"
 import MovieRow from "./MovieRow"
 import Loading from './Loading'
 
 
-class BrowseMovies extends Component {
-  state = {
-      movies: null,
-      movies2: null,
-      movies3: null,
-      isLoading: true
+const BrowseMovies = () => {
 
-  };
+  const [movies, setMovies] = useState(null)
+  const [movies2, setMovies2] = useState(null)
+  const [movies3, setMovies3] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
 
-  fetchMovies = async (query, updateMovie) => {
+  const fetchMovies = async (query, updateMovie) => {
 
     let url = `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&s=${query}`
     try {
       const response = await fetch(url)
       const data = await response.json()
       if (response.ok) {
-        this.setState(
-           {
-            [updateMovie]: data.Search
-          }
-        )
-        this.setState({isLoading: false})
+        setMovies(data.Search)
+        // this.setState({
+        //     [updateMovie]: data.Search
+        //   })
+        setIsLoading(false)
       } else {
-        this.setState({isLoading: false})
+        setIsLoading(false)
       }
-    } catch (e) {
-      console.log(e)
-      this.setState({isLoading: false})
+    } catch (error) {
+      console.error(error)
+      setIsLoading(false)
     }
   }
 
-  componentDidMount = async () => {
-    this.fetchMovies('harry%20potter', 'movies')
-    this.fetchMovies('home%20alone', 'movies2')
-    this.fetchMovies('marvel', 'movies3')
-  }
+  useEffect(() => {
+    fetchMovies('harry%20potter', 'movies')
+    // fetchMovies('home%20alone', 'movies2')
+    // fetchMovies('marvel', 'movies3')
+  }, [])
 
-  render() {
     return (
       <>
-
-        { this.state.isLoading &&  <Loading /> }
-        { this.state.movies && <MovieRow movies={this.state.movies}/> }
-        { this.state.movies2 && <MovieRow movies={this.state.movies2}/> }
-        { this.state.movies3 && <MovieRow movies={this.state.movies3}/> }
+        { isLoading &&  <Loading /> }
+        { movies && <MovieRow movies={movies}/> }
+        { movies2 && <MovieRow movies={movies2}/> }
+        { movies3 && <MovieRow movies={movies3}/> }
       </>
-    );
-  }
+    )
 }
 
 export default BrowseMovies;

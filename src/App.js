@@ -1,10 +1,10 @@
-import MyNavbar from './componenets/MyNavbar';
+import Home from './componenets/Home';
 
 
 function App() {
   return (
     <>
-      <MyNavbar/>
+      <Home/>
     </>
   );
 }
