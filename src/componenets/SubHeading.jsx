@@ -22,7 +22,7 @@ const SubHeading = ({ initialLoad, handleChange, category }) => (
                     >
                         <option>Action</option>
                         <option>Comedy</option>
-                        <option>Horror</option>
+                        <option>Romance</option>
                     </Form.Control>
                 </div>
             

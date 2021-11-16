@@ -235,3 +235,6 @@ footer div div p:hover {
 .loading-card {
   min-height: 500px;
 }
+.search-error {
+  min-height: 60vh;
+}
