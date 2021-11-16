@@ -5,6 +5,7 @@ import HeroMovie from './HeroMovie'
 import Footer from './Footer'
 import SubHeading from './SubHeading'
 import BrowseMovies from './BrowseMovies'
+import Loading from './Loading'
 
 const Home = () => {
 
@@ -35,23 +36,20 @@ const Home = () => {
         }
     }
 
-    const handleChange = e => {
-        setSearchQuery(e.target.value)
-    }
-
     return (
         <>
             <MyNavbar 
-                isLoading={isLoading} 
                 searchQuery={searchQuery}
-                handleChange={handleChange}
+                handleChange={e => setSearchQuery(e.target.value)}
                 handleSubmit={handleSubmit}
             />
 
-            { showSearchResults && <SearchResults movies={data} searchQuery={searchQuery} /> }
+            { isLoading && <Loading /> }
+
+            { (!isLoading && showSearchResults) && <SearchResults movies={data} searchQuery={searchQuery} /> }
             
             {
-                !showSearchResults &&      
+                (!isLoading && !showSearchResults) &&      
                 <>
                     <HeroMovie />
                     <SubHeading />

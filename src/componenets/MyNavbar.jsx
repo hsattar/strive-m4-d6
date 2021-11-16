@@ -3,9 +3,7 @@ import Form from 'react-bootstrap/Form'
 import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
 
-import Loading from './Loading'
-
-const MyNavbar = ({handleChange, handleSubmit, searchQuery, isLoading}) => {
+const MyNavbar = ({ handleChange, handleSubmit, searchQuery }) => {
 
     return (
         <Navbar bg="dark" variant="dark" expand="lg">
@@ -32,7 +30,6 @@ const MyNavbar = ({handleChange, handleSubmit, searchQuery, isLoading}) => {
                             value={searchQuery}
                             onChange={handleChange} 
                         />
-                        {/* { isLoading && <Loading /> } */}
                         <Button type="submit" variant="dark"><i className="bi bi-search mx-2"></i></Button>
                     </Form>
 
