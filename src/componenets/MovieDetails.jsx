@@ -14,8 +14,13 @@ const MovieDetails = () => {
     const fetchMovieDetails = async () => {
         try {
             const response = await fetch(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&i=${imdbID}`)
-            const data = await response.json()
-            setMovie(data)
+            if (response.ok) {
+
+                const data = await response.json()
+                setMovie(data)
+            } else {
+                console.error('Fetch Failed')
+            }
         } catch (error) {
             console.error(error)
         }
@@ -28,14 +33,14 @@ const MovieDetails = () => {
 
     return (
         <>
-            { movie &&
+            { movie ?
                 <Container>
-                    <Row className="mt-5">
-                        <Col xs='12' md='4'>
-                            <img src={movie.Poster} />
+                    <Row className="mt-5 text-center">
+                        <Col xs='12' md='6' lg='4' className='mb-4'>
+                            <img src={movie.Poster} alt={`Movie Poster of ${movie.Title}`}/>
                         </Col>
 
-                        <Col xs='12' md='8' className='text-center' alt={`Movie Poster of ${movie.Title}`}>
+                        <Col xs='12' md='6' lg='8'>
                             <h2>{movie.Title}</h2>
                             <h5 className='font-weight-normal my-3'>{movie.Plot}</h5>
                             <p>Genre - {movie.Genre}</p>
@@ -45,6 +50,8 @@ const MovieDetails = () => {
                         </Col>
                     </Row>
                 </Container>
+                :
+                <h2 className='text-danger'>This does not exist</h2>
             }
         </>
     )
