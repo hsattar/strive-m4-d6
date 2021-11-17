@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import MyNavbar from './componenets/MyNavbar'
 import Movies from './componenets/Movies'
+import MovieDetails from './componenets/MovieDetails'
 import Shows from './componenets/Shows'
 import Footer from './componenets/Footer'
 import NotFound from './componenets/NotFound'
@@ -108,6 +109,8 @@ function App() {
           handleGridLayoutClick={() => setMovieGridLayout(true)}
           handleListLayoutClick={() => setMovieGridLayout(false)}
         /> } />
+
+        <Route path='/movies/:imdbID' element={ <MovieDetails /> } />
 
         <Route path='/shows' element={ <Shows /> } />
         
