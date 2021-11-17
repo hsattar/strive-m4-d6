@@ -5,7 +5,7 @@ import BrowseMovies from './BrowseMovies'
 import Loading from './Loading'
 
 
-const Home = ({ isLoading, showSearchResults, data, searchQuery, initialLoad, category, movieGridLayout, 
+const Movies = ({ isLoading, showSearchResults, data, searchQuery, initialLoad, category, movieGridLayout, 
             movies, movies2, movies3, handleChange, handleGridLayoutClick, handleListLayoutClick }) => {
     
     return (
@@ -40,4 +40,4 @@ const Home = ({ isLoading, showSearchResults, data, searchQuery, initialLoad, ca
     )
 }
 
-export default Home
+export default Movies

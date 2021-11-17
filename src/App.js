@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import MyNavbar from './componenets/MyNavbar'
-import Home from './componenets/Home'
+import Movies from './componenets/Movies'
 import Shows from './componenets/Shows'
 import Footer from './componenets/Footer'
 import NotFound from './componenets/NotFound'
@@ -56,6 +56,7 @@ function App() {
         category === 'Action' ? actionMovies.map(({name, number}) => fetchMovies(name, number)) :
         category === 'Comedy' ? comedyMovies.map(({name, number}) => fetchMovies(name, number)) :
         romanceMovies.map(({name, number}) => fetchMovies(name, number))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [category])
 
   const handleSubmit = async e => {
@@ -92,7 +93,7 @@ function App() {
 
       <Routes>
 
-        <Route path='/' element={ <Home 
+        <Route path='/movies' element={ <Movies 
           isLoading={isLoading}
           showSearchResults={showSearchResults}
           data={data}
