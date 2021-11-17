@@ -4,20 +4,20 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
-const MovieDetails = () => {
+const ContentDetails = () => {
 
-    const [movie, setMovie] = useState(null)
+    const [content, setContent] = useState(null)
 
     const params = useParams()
     const imdbID = params.imdbID
 
-    const fetchMovieDetails = async () => {
+    const fetchContentDetails = async () => {
         try {
             const response = await fetch(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&i=${imdbID}`)
             if (response.ok) {
 
                 const data = await response.json()
-                setMovie(data)
+                setContent(data)
             } else {
                 console.error('Fetch Failed')
             }
@@ -27,26 +27,26 @@ const MovieDetails = () => {
     }
 
     useEffect(() => {
-        fetchMovieDetails()
+        fetchContentDetails()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
         <>
-            { movie ?
+            { content ?
                 <Container>
                     <Row className="mt-5 text-center">
                         <Col xs='12' md='6' lg='4' className='mb-4'>
-                            <img src={movie.Poster} alt={`Movie Poster of ${movie.Title}`}/>
+                            <img src={content.Poster} alt={`content Poster of ${content.Title}`}/>
                         </Col>
 
                         <Col xs='12' md='6' lg='8'>
-                            <h2>{movie.Title}</h2>
-                            <h5 className='font-weight-normal my-3'>{movie.Plot}</h5>
-                            <p>Genre - {movie.Genre}</p>
-                            <p>Age Rating - {movie.Rated}</p>
-                            <p>Realesed - {movie.Year}</p>
-                            <p>IMDB Rating - {movie.imdbRating}</p>
+                            <h2>{content.Title}</h2>
+                            <h5 className='font-weight-normal my-3'>{content.Plot}</h5>
+                            <p>Genre - {content.Genre}</p>
+                            <p>Age Rating - {content.Rated}</p>
+                            <p>Realesed - {content.Year}</p>
+                            <p>IMDB Rating - {content.imdbRating}</p>
                         </Col>
                     </Row>
                 </Container>
@@ -57,4 +57,4 @@ const MovieDetails = () => {
     )
 }
 
-export default MovieDetails
+export default ContentDetails

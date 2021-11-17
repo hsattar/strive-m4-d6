@@ -6,7 +6,7 @@ import BrowseContent from '../componenets/BrowseContent'
 
 const Movies = () => {
 
-        const [initialLoad, setInitialLoad] = useState(true)
+        const [isLoading, setIsLoading] = useState(true)
         const [movies, setMovies] = useState(null)
         const [movies2, setMovies2] = useState(null) 
         const [movies3, setMovies3] = useState(null)
@@ -23,13 +23,13 @@ const Movies = () => {
                 num === 1 ? setMovies(data.Search) :
                 num === 2 ? setMovies2(data.Search) :
                 setMovies3(data.Search)
-                setInitialLoad(false)
+                setIsLoading(false)
               } else {
-                setInitialLoad(false)
+                setIsLoading(false)
               }
             } catch (error) {
               console.error(error)
-              setInitialLoad(false)
+              setIsLoading(false)
             }
           }
       
@@ -48,29 +48,29 @@ const Movies = () => {
           useEffect(() => {
             category === 'Action' ? actionMovies.map(({name, number}) => {
                 const string = name.split(' ').join('%20')
-                console.log(string)
-                fetchMovies(name, number) 
+                return fetchMovies(string, number) 
             }) :
             category === 'Comedy' ? comedyMovies.map(({name, number}) => {
                 const string = name.split(' ').join('%20')
-                console.log(string)
-                fetchMovies(name, number) 
+                return fetchMovies(string, number) 
             }) :
             romanceMovies.map(({name, number}) => {
                 const string = name.split(' ').join('%20')
-                console.log(string)
-                fetchMovies(name, number) 
+                return fetchMovies(string, number) 
             })
             // eslint-disable-next-line react-hooks/exhaustive-deps
           }, [category])
     
     return (
         <>
-            <HeroMovie initialLoad={initialLoad}/>
+            <HeroMovie isLoading={isLoading}/>
             <SubHeading
-                initialLoad={initialLoad}
+                isLoading={isLoading}
                 category={category}
-                handleChange={e => setCategory(e.target.value)}
+                handleChange={e => {
+                    setCategory(e.target.value)
+                    setIsLoading(true)
+                }}
                 contentGridLayout={contentGridLayout}
                 handleGridLayoutClick={() => setContentGridLayout(true)}
                 handleListLayoutClick={() => setContentGridLayout(false)}
@@ -80,7 +80,7 @@ const Movies = () => {
                 option3='Romance'
             />
             <BrowseContent 
-                initialLoad={initialLoad} 
+                isLoading={isLoading} 
                 content={movies}
                 content2={movies2}
                 content3={movies3}

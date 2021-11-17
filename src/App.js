@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import MyNavbar from './componenets/MyNavbar'
 import Movies from './pages/Movies'
-import MovieDetails from './componenets/MovieDetails'
+import ContentDetails from './componenets/ContentDetails'
 import Shows from './pages/Shows'
 import SearchResults from './pages/SearchResults'
 import Footer from './componenets/Footer'
@@ -25,13 +25,9 @@ function App() {
       <Routes>
 
         <Route path='/movies' element={ <Movies /> } />
-
-        <Route path='/movies/:imdbID' element={ <MovieDetails /> } />
-
+        <Route path='/details/:imdbID' element={ <ContentDetails /> } />
         <Route path='/shows' element={ <Shows /> } />
-
         <Route path='/search' element={ <SearchResults searchQuery={searchQuery} /> } />
-        
         <Route path='*' element={ <NotFound /> } />
       
       </Routes>

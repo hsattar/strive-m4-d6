@@ -5,7 +5,7 @@ import BrowseContent from '../componenets/BrowseContent'
 
 const Shows = () => {
 
-        const [initialLoad, setInitialLoad] = useState(true)
+        const [isLoading, setIsLoading] = useState(true)
         const [shows, setShows] = useState(null)
         const [shows2, setShows2] = useState(null) 
         const [shows3, setShows3] = useState(null)
@@ -22,13 +22,13 @@ const Shows = () => {
                 num === 1 ? setShows(data.Search) :
                 num === 2 ? setShows2(data.Search) :
                 setShows3(data.Search)
-                setInitialLoad(false)
+                setIsLoading(false)
               } else {
-                setInitialLoad(false)
+                setIsLoading(false)
               }
             } catch (error) {
               console.error(error)
-              setInitialLoad(false)
+              setIsLoading(false)
             }
           }
       
@@ -47,18 +47,15 @@ const Shows = () => {
           useEffect(() => {
             category === 'Popular' ? popular.map(({name, number}) => {
                 const string = name.split(' ').join('%20')
-                console.log(string)
-                fetchShows(name, number) 
+                return fetchShows(string, number) 
             }) :
             category === 'Trending' ? trending.map(({name, number}) => {
                 const string = name.split(' ').join('%20')
-                console.log(string)
-                fetchShows(name, number) 
+                return fetchShows(string, number) 
             }) :
             recentlyWatched.map(({name, number}) => {
                 const string = name.split(' ').join('%20')
-                console.log(string)
-                fetchShows(name, number) 
+                return fetchShows(string, number) 
             })
             // eslint-disable-next-line react-hooks/exhaustive-deps
           }, [category])
@@ -66,9 +63,12 @@ const Shows = () => {
     return (
         <>
             <SubHeading
-                initialLoad={initialLoad}
+                isLoading={isLoading}
                 category={category}
-                handleChange={e => setCategory(e.target.value)}
+                handleChange={e => {
+                    setCategory(e.target.value)
+                    setIsLoading(true)
+                }}
                 contentGridLayout={contentGridLayout}
                 handleGridLayoutClick={() => setContentGridLayout(true)}
                 handleListLayoutClick={() => setContentGridLayout(false)}
@@ -78,7 +78,7 @@ const Shows = () => {
                 option3='Recently Watched'
             />
             <BrowseContent 
-                initialLoad={initialLoad} 
+                isLoading={isLoading} 
                 content={shows}
                 content2={shows2}
                 content3={shows3}
