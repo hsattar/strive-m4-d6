@@ -1,4 +1,5 @@
 import Navbar from 'react-bootstrap/Navbar'
+import Nav from 'react-bootstrap/Nav'
 import Form from 'react-bootstrap/Form'
 import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
@@ -13,11 +14,9 @@ const MyNavbar = ({ handleChange, handleSubmit, searchQuery }) => {
 
             <div className="collapse navbar-collapse text-white" id="navbarSupportedContent">
                 <ul className="navbar-nav mr-auto">
-                    <li className="nav-item"><a className="nav-link" href="/">Home</a></li>
-                    <li className="nav-item"><a className="nav-link" href="/">TV Shows<span className="sr-only">(current)</span></a></li>
-                    <li className="nav-item active"><a className="nav-link" href="/">Movies</a></li>
-                    <li className="nav-item"><a className="nav-link" href="/">Recently Added</a></li>
-                    <li className="nav-item"><a className="nav-link" href="/">My List</a></li>
+                    <Nav.Link href="#features">Home</Nav.Link>
+                    <Nav.Link href="#features">TV Shows</Nav.Link>
+                    <Nav.Link href="#features">Movies</Nav.Link>
                 </ul>
 
                 <div className="form-inline my-2 my-lg-0">
