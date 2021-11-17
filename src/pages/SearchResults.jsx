@@ -2,6 +2,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import Loading from '../componenets/Loading'
 
 const SearchResults = ({ searchQuery }) => {
 
@@ -9,6 +10,7 @@ const SearchResults = ({ searchQuery }) => {
     const [isLoading, setIsLoading] = useState(false)
     
     const fetchSearchResults = async () => {
+        setIsLoading(true)
         try {
             const response = await fetch(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&s=${searchQuery}`)
             if (response.ok) {
@@ -16,11 +18,14 @@ const SearchResults = ({ searchQuery }) => {
                 console.log(data)
                 console.log(data.Search)
                 setResults(data.Search)
+                setIsLoading(false)
             } else {
                 console.error('Fetch Failed')
+                setIsLoading(false)
             }
         } catch (error) {
             console.error(error)
+            setIsLoading(false)
         }
     }
 
@@ -31,6 +36,9 @@ const SearchResults = ({ searchQuery }) => {
 
     return (
         <>
+            { isLoading && 
+                <Loading />
+            }
             {
                 results &&
                 <>

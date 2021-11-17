@@ -1,17 +1,21 @@
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
-const MovieRow = ({movies, movieGridLayout}) => {
+const MovieRow = ({content, contentGridLayout}) => {
+
+    const location = useLocation()
+    const path = location.pathname
+
     return (
         <Row className="mx-1 my-4 justify-content-center">
-            { movieGridLayout ? 
+            { contentGridLayout ? 
             <>
             {
-                movies.map(({imdbID, Poster}, index) => (
+                content.map(({imdbID, Poster}, index) => (
                     index < 4 &&
                     <Col key={imdbID} xs='12' sm='6' md='4' lg='3' className="mb-3">
-                            <Link to={`/movies/${imdbID}`}>
+                            <Link to={path === '/movies' ? `/movies/${imdbID}` : `/shows/${imdbID}`}>
                                 <img src={Poster} className="w-100 img-fluid rounded images" alt="" />
                             </Link>
                     </Col>
@@ -21,12 +25,12 @@ const MovieRow = ({movies, movieGridLayout}) => {
             : 
             <>
             {
-                movies.map(({imdbID, Poster, Title, Year}, index) => (
+                content.map(({imdbID, Poster, Title, Year}, index) => (
                     index < 4 &&
                     <Col key={imdbID} xs='12' sm='6' md='4' lg='3' className="mb-3">
                         <Row>
                             <Col lg='8'>
-                                <Link to={`/movies/${imdbID}`}>
+                                <Link to={path === '/movies' ? `/movies/${imdbID}` : `/shows/${imdbID}`}>
                                     <img src={Poster} className="w-100 img-fluid rounded images" alt="" />
                                 </Link>
                             </Col>

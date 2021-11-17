@@ -5,7 +5,7 @@ import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 
-const MyNavbar = ({ handleChange, handleSubmit, searchQuery }) => {
+const MyNavbar = ({ handleChange, searchQuery }) => {
 
     const location = useLocation()
     const path = location.pathname

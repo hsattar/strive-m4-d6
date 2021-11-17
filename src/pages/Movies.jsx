@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react'
 import HeroMovie from '../componenets/HeroMovie'
 import SubHeading from '../componenets/SubHeading'
-import BrowseMovies from '../componenets/BrowseMovies'
+import BrowseContent from '../componenets/BrowseContent'
 
 
-const Movies = ({ searchQuery }) => {
+const Movies = () => {
 
         const [initialLoad, setInitialLoad] = useState(true)
         const [movies, setMovies] = useState(null)
         const [movies2, setMovies2] = useState(null) 
         const [movies3, setMovies3] = useState(null)
         const [category, setCategory] = useState('Action')
-        const [movieGridLayout, setMovieGridLayout] = useState(true)
+        const [contentGridLayout, setContentGridLayout] = useState(true)
           
         const fetchMovies = async (query, num) => {
       
@@ -34,22 +34,34 @@ const Movies = ({ searchQuery }) => {
           }
       
           const actionMovies = [
-              { name: 'fast%20furious', number: 1 }, { name: 'marvel', number: 2 }, { name: 'batman', number: 3 }
+              { name: 'fast furious', number: 1 }, { name: 'marvel', number: 2 }, { name: 'batman', number: 3 }
           ]
       
           const comedyMovies = [
-              { name: 'home%20alone', number: 1 }, { name: 'diary%20of%20a%20wimpy%20kid', number: 2 }, { name: 'jumanji', number: 3 }
+              { name: 'home alone', number: 1 }, { name: 'diary of a wimpy kid', number: 2 }, { name: 'jumanji', number: 3 }
           ]
       
           const romanceMovies = [
-              { name: 'high%20school%20musical', number: 1 }, { name: 'bridget%20jones', number: 2 }, { name: 'last%20christmas', number: 3 }
+              { name: 'high school musical', number: 1 }, { name: 'bridget jones', number: 2 }, { name: 'last christmas', number: 3 }
           ]
       
           useEffect(() => {
-              category === 'Action' ? actionMovies.map(({name, number}) => fetchMovies(name, number)) :
-              category === 'Comedy' ? comedyMovies.map(({name, number}) => fetchMovies(name, number)) :
-              romanceMovies.map(({name, number}) => fetchMovies(name, number))
-              // eslint-disable-next-line react-hooks/exhaustive-deps
+            category === 'Action' ? actionMovies.map(({name, number}) => {
+                const string = name.split(' ').join('%20')
+                console.log(string)
+                fetchMovies(name, number) 
+            }) :
+            category === 'Comedy' ? comedyMovies.map(({name, number}) => {
+                const string = name.split(' ').join('%20')
+                console.log(string)
+                fetchMovies(name, number) 
+            }) :
+            romanceMovies.map(({name, number}) => {
+                const string = name.split(' ').join('%20')
+                console.log(string)
+                fetchMovies(name, number) 
+            })
+            // eslint-disable-next-line react-hooks/exhaustive-deps
           }, [category])
     
     return (
@@ -59,16 +71,20 @@ const Movies = ({ searchQuery }) => {
                 initialLoad={initialLoad}
                 category={category}
                 handleChange={e => setCategory(e.target.value)}
-                movieGridLayout={movieGridLayout}
-                handleGridLayoutClick={() => setMovieGridLayout(true)}
-                handleListLayoutClick={() => setMovieGridLayout(false)}
+                contentGridLayout={contentGridLayout}
+                handleGridLayoutClick={() => setContentGridLayout(true)}
+                handleListLayoutClick={() => setContentGridLayout(false)}
+                title='Movies'
+                option1='Action'
+                option2='Comedy'
+                option3='Romance'
             />
-            <BrowseMovies 
+            <BrowseContent 
                 initialLoad={initialLoad} 
-                movies={movies}
-                movies2={movies2}
-                movies3={movies3}
-                movieGridLayout={movieGridLayout}
+                content={movies}
+                content2={movies2}
+                content3={movies3}
+                contentGridLayout={contentGridLayout}
             />
         </>
     )
