@@ -13,7 +13,7 @@ const ContentDetails = () => {
 
     const fetchContentDetails = async () => {
         try {
-            const response = await fetch(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&i=${imdbID}`)
+            const response = await fetch(`https://hs-omdb-proxy.herokuapp.com/omdb?i=${imdbID}`)
             if (response.ok) {
 
                 const data = await response.json()
