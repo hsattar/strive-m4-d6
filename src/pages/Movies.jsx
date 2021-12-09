@@ -15,7 +15,7 @@ const Movies = () => {
           
         const fetchMovies = async (query, num) => {
       
-        let url = `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&s=${query}`
+        let url = `https://hs-omdb-proxy.herokuapp.com/omdb?s=${query}`
             try {
               const response = await fetch(url)
               const data = await response.json()

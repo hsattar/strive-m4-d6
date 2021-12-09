@@ -12,7 +12,7 @@ const SearchResults = ({ searchQuery }) => {
     const fetchSearchResults = async () => {
         setIsLoading(true)
         try {
-            const response = await fetch(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&s=${searchQuery}`)
+            const response = await fetch(`https://hs-omdb-proxy.herokuapp.com/omdb?s=${searchQuery}`)
             if (response.ok) {
                 const data = await response.json()
                 console.log(data)
