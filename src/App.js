@@ -7,6 +7,7 @@ import SearchResults from './pages/SearchResults'
 import Footer from './componenets/Footer'
 import NotFound from './pages/NotFound'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import Home from './pages/Home'
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
 
       <Routes>
 
+        <Route path='/' element={ <Home /> } />
         <Route path='/movies' element={ <Movies /> } />
         <Route path='/details/:imdbID' element={ <ContentDetails /> } />
         <Route path='/shows' element={ <Shows /> } />
