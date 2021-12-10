@@ -12,12 +12,12 @@ const SearchResults = ({ searchQuery }) => {
     const fetchSearchResults = async () => {
         setIsLoading(true)
         try {
-            const response = await fetch(`https://hs-omdb-proxy.herokuapp.com/omdb?s=${searchQuery}`)
+            const response = await fetch(`${process.env.REACT_APP_BE_REMOTE_URL}/movies/search?s=${searchQuery}`)
             if (response.ok) {
                 const data = await response.json()
                 console.log(data)
                 console.log(data.Search)
-                setResults(data.Search)
+                setResults(data)
                 setIsLoading(false)
             } else {
                 console.error('Fetch Failed')
