@@ -1,4 +1,10 @@
-# Getting Started with Create React App
+# Deployed at: 
+https://hs-striveflix.vercel.app
+
+## Backend Repo:
+https://github.com/hsattar/strive-m5-d10
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
