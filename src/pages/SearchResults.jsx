@@ -47,7 +47,7 @@ const SearchResults = ({ searchQuery }) => {
                     {               
                         results.map(({imdbID, Poster}) => (
                             <Col key={imdbID} xs='12' sm='6' md='4' lg='3' className="mb-3">
-                                <Link to={`/movies/${imdbID}`}>
+                                <Link to={`/details/${imdbID}`}>
                                     <img src={Poster} className="w-100 img-fluid rounded images" alt="" />
                                 </Link>
                             </Col>
